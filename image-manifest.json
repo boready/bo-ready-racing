@@ -1,0 +1,11 @@
+{
+  "description": "Unique images reserved for homepage editorial sections. Gallery excludes these images.",
+  "sections": {
+    "hero": "assets/photo-25.webp",
+    "about": "assets/photo-n01.webp",
+    "statement": "assets/photo-44.webp",
+    "season": "assets/photo-n02.webp",
+    "sponsor": "assets/photo-oct-10.webp",
+    "footer": "assets/photo-38.webp"
+  }
+}

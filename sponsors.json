@@ -1,0 +1,21 @@
+{
+  "sponsors": [
+    {
+      "slug": "coleman-electric",
+      "name": "Coleman Electric",
+      "description": "Coleman Electric \u2014 Wamego, Kansas. Visit the business website or Facebook page for services and contact information.",
+      "website": "https://www.colemanelectricllc.com/",
+      "facebook": "https://www.facebook.com/profile.php?id=100057653761625",
+      "city": "Wamego",
+      "state": "KS",
+      "markets": [
+        "Wamego, KS",
+        "Kansas"
+      ],
+      "tier": "Premier",
+      "active": true,
+      "logo": null
+    }
+  ],
+  "notes": "Add approved sponsor business details here. Location matching uses market labels, not background GPS collection. External advertising requires a separate opted-in ad platform."
+}
