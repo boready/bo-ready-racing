@@ -1,9 +1,22 @@
-# Bo Ready Racing — GitHub Pages
+# Bo Ready Racing #38 — GitHub Pages
 
-This is the cleaned static website. Upload the **contents** of this ZIP to the root of your GitHub repository, then enable Settings → Pages → Deploy from branch → main → / (root).
+This is the static website. All files and the `assets/` and `media/` folders must be uploaded at the **repository root**, with `index.html` at the root.
 
-The removed `website/`, `design-reference/`, `sponsor-command-center/`, and `admin/` directories were separate development/server projects or design copies, not needed to publish the static site. Keep the original combined ZIP as a backup if you later want to develop the sponsor dashboard or server-side geofencing.
+## Publish
+1. Remove old files from the repository before uploading this complete replacement (or replace matching files and remove stale files).
+2. Extract the ZIP. Upload its **contents**, not the ZIP or an enclosing folder, to the `main` branch.
+3. Settings > Pages > Deploy from a branch > `main` > `/ (root)`.
+4. Visit https://boready.github.io/bo-ready-racing/ after deployment.
 
-GitHub Pages cannot execute Node.js server code or host a database. Dynamic sponsor APIs and analytics require separate backend hosting. The existing site code and references were not rewritten.
+## Pages
+- `index.html` — homepage
+- `gallery.html` — original racing photos
+- `videos.html` — local MP4 race videos
+- `sponsors.html` — sponsor directory
+- `sponsor-profile.html?slug=coleman-electric` — sponsor profile
+- `race-film.html` — video film page
 
-Some site metadata still contains `%%SITE_URL%%` placeholders; replace them with your published URL when ready.
+## Limitations
+GitHub Pages serves static files only. Geolocation matching, click tracking, sponsor dashboards, and automated inquiry submission require a separate backend. The sponsor inquiry provides a copyable message fallback instead of claiming a message was delivered.
+
+Only authentic media from the supplied ZIP is included. No generated racing images.

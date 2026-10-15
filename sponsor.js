@@ -12,7 +12,7 @@
   const track = (type, label = '', zone = '') => {
     try {
       const blob = new Blob([JSON.stringify({ type, label, zone, visitor })], { type: 'application/json' });
-      if (!(navigator.sendBeacon && navigator.sendBeacon('/api/events', blob))) post('/api/events', { type, label, zone, visitor }).catch(() => {});
+      /* Event collection requires a separately deployed backend. */
     } catch { /* analytics must never break the page */ }
   };
 
@@ -125,6 +125,7 @@
     btn.disabled = true; status.textContent = 'Sending…';
     const payload = { ...d, consent: true, elapsedMs: Date.now() - pageStart };
     try {
+      throw new Error('GitHub Pages has no inquiry API');
       const res = await post('/api/inquiries', payload);
       const r = await res.json().catch(() => ({}));
       if (res.status === 422) { setErrs(r.fields); status.textContent = r.error || ''; btn.disabled = false; return; }
