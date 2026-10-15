@@ -1,47 +1,22 @@
 [
   {
-    "title": "Race Highlights \u2014 MAMW",
-    "source_filename": "BOMAMW(1).mp4",
-    "youtube_url": ""
+    "title": "Race Highlights 1",
+    "file": "media/race-highlights-1.mp4"
   },
   {
-    "title": "Fairbury \u2014 August 29, 2026",
-    "source_filename": "Bo Fairbury 8.29.26(2).mp4",
-    "youtube_url": ""
+    "title": "Race Highlights 2",
+    "file": "media/race-highlights-2.mp4"
   },
   {
-    "title": "Fairbury \u2014 Race Footage",
-    "source_filename": "BoFairbury (1).mp4",
-    "youtube_url": ""
+    "title": "Race Highlights 3",
+    "file": "media/race-highlights-3.mp4"
   },
   {
-    "title": "Shootout \u2014 Race Footage",
-    "source_filename": "BoShootout(2).mp4",
-    "youtube_url": ""
+    "title": "Season Finale",
+    "file": "media/season-finale.mp4"
   },
   {
-    "title": "Washington \u2014 August 22, 2026",
-    "source_filename": "BoWashington8.22.26(2).mp4",
-    "youtube_url": ""
-  },
-  {
-    "title": "Washington \u2014 September 5\u20136, 2026",
-    "source_filename": "BoWashington9.5-6(1).mp4",
-    "youtube_url": ""
-  },
-  {
-    "title": "Tulsa Shootout \u2014 2024",
-    "source_filename": "Bo_Tulsa_Shootout_2024(2).mp4",
-    "youtube_url": ""
-  },
-  {
-    "title": "Fairbury \u2014 More Action",
-    "source_filename": "bofairbury(1).mp4",
-    "youtube_url": ""
-  },
-  {
-    "title": "Washington \u2014 More Action",
-    "source_filename": "bowashington(1).mp4",
-    "youtube_url": ""
+    "title": "Sponsorship",
+    "file": "media/sponsorship.mp4"
   }
 ]
