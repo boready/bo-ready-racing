@@ -1,22 +1,48 @@
-[
-  {
-    "title": "Race Highlights 1",
-    "file": "media/race-highlights-1.mp4"
-  },
-  {
-    "title": "Race Highlights 2",
-    "file": "media/race-highlights-2.mp4"
-  },
-  {
-    "title": "Race Highlights 3",
-    "file": "media/race-highlights-3.mp4"
-  },
-  {
-    "title": "Season Finale",
-    "file": "media/season-finale.mp4"
-  },
-  {
-    "title": "Sponsorship",
-    "file": "media/sponsorship.mp4"
-  }
-]
+{
+  "videos": [
+    {
+      "youtubeId": "io9m1D4Xnv0",
+      "title": "Bo Ready Racing #38 — Full Throttle on Dirt!"
+    },
+    {
+      "youtubeId": "fGSeXp_Pj4I",
+      "title": "Dirt Track Racing Gets Wild! #38"
+    },
+    {
+      "youtubeId": "dtap9inSVRc",
+      "title": "Bo Ready Racing — Chasing the Checkered Flag"
+    },
+    {
+      "youtubeId": "Szw_WmLRVyw",
+      "title": "Non-Wing Micro Sprint Racing Action!"
+    },
+    {
+      "youtubeId": "w6EqpjT2wg4",
+      "title": "Racing on the Edge — Bo Ready #38"
+    },
+    {
+      "youtubeId": "mAgJna9_j4A",
+      "title": "Dirt, Speed & Adrenaline — Ready Racing"
+    },
+    {
+      "youtubeId": "_yaN4rnUGjk",
+      "title": "Bo Ready Racing #38 — Race Night Highlights"
+    },
+    {
+      "youtubeId": "PYBJ0kOKGms",
+      "title": "The Dirt Track Doesn't Forgive!"
+    },
+    {
+      "youtubeId": "WI-byEiwOfc",
+      "title": "Pedal Down! Non-Wing Micro Sprint Racing"
+    },
+    {
+      "youtubeId": "ql4w7bCiObU",
+      "title": "Bo Ready Racing — Built for the Dirt"
+    },
+    {
+      "youtubeId": "1plFNfLiX6M",
+      "title": "Living the Racing Dream — Bo Ready #38"
+    }
+  ]
+}

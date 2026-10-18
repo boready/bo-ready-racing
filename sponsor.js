@@ -12,7 +12,7 @@
   const track = (type, label = '', zone = '') => {
     try {
       const blob = new Blob([JSON.stringify({ type, label, zone, visitor })], { type: 'application/json' });
-      /* Event collection requires a separately deployed backend. */
+      if (!(navigator.sendBeacon && navigator.sendBeacon('/api/events', blob))) post('/api/events', { type, label, zone, visitor }).catch(() => {});
     } catch { /* analytics must never break the page */ }
   };
 
@@ -25,82 +25,10 @@
     ['story', 'gallery', 'partners', 'packages', 'season', 'nearby', 'inquiry'].forEach((id) => $(id) && io.observe($(id)));
   }
   document.querySelectorAll('[data-tier]').forEach((a) => a.addEventListener('click', () => {
-    $('sponsor-form').elements.package.value = a.dataset.tier; track('tier_click', a.dataset.tier);
+    if ($('sponsor-form')) $('sponsor-form').elements.package.value = a.dataset.tier; track('tier_click', a.dataset.tier);
   }));
   $('photos')?.addEventListener('click', (e) => { if (e.target.closest('.tile')) track('gallery_open'); });
   document.querySelectorAll('.nav-cta,.hero-actions a,.tier-footer a,.contact a.button').forEach((a) => a.addEventListener('click', () => track('cta_click', (a.textContent || '').trim().slice(0, 40))));
-
-  // ---- geofence / local sponsor match ----
-  let lastFix = null; // kept in memory only, used for the optional check-in call
-  const geoBtn = $('geo-btn'), zipForm = $('zip-form'), card = $('geo-result');
-  const market = document.querySelector('#sponsor-form [name=market]'), marketTag = $('market-tag');
-
-  function showResult(r, note) {
-    card.hidden = false;
-    const p = r.primary;
-    const atVenue = r.zones.some((z) => z.kind !== 'market');
-    $('geo-badge').textContent = atVenue ? 'AT A #38 VENUE' : p ? 'IN THE #38 TERRITORY' : 'OUTSIDE OUR CORE MARKET';
-    $('geo-headline').textContent = p ? p.headline : "You're outside our core markets, for now.";
-    $('geo-message').textContent = p ? p.message : "Online partners and in-kind support work from anywhere, and we race beyond Kansas. Tell us about your business and we'll find the right fit.";
-    $('geo-cta').firstChild.textContent = (p ? p.cta : 'Talk partnership') + ' ';
-    const v = $('geo-venue');
-    if (r.nearestVenue && !atVenue) { v.hidden = false; v.textContent = `Nearest #38 venue on file: ${r.nearestVenue.name}, about ${r.nearestVenue.distKm} km away.`; } else v.hidden = true;
-    if (note) { v.hidden = false; v.textContent = note; }
-    $('geo-checkin').hidden = !(r.canCheckIn && lastFix);
-    $('geo-checkin').disabled = false;
-    $('geo-checkin').firstChild.textContent = 'CHECK IN AT THE TRACK ';
-    if (p) { market.value = p.name; marketTag.hidden = false; marketTag.textContent = 'Market noted on your inquiry: ' + p.name; }
-    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  function geoError(msg) {
-    card.hidden = false;
-    $('geo-badge').textContent = 'LOCATION UNAVAILABLE';
-    $('geo-headline').textContent = "We couldn't get your location.";
-    $('geo-message').textContent = msg + ' You can enter your ZIP code instead.';
-    $('geo-venue').hidden = true; $('geo-checkin').hidden = true;
-    $('geo-cta').firstChild.textContent = 'Talk partnership ';
-  }
-
-  geoBtn?.addEventListener('click', () => {
-    if (!navigator.geolocation) return geoError('Your browser does not support location.');
-    geoBtn.disabled = true; geoBtn.firstChild.textContent = 'LOCATING… ';
-    navigator.geolocation.getCurrentPosition(async (pos) => {
-      const { latitude: lat, longitude: lng, accuracy } = pos.coords;
-      lastFix = { lat, lng, accuracy };
-      try {
-        const res = await post('/api/geo', { lat, lng, accuracy, visitor });
-        if (!res.ok) throw new Error((await res.json()).error || 'Request failed');
-        showResult(await res.json());
-      } catch (e) { geoError(e.message || 'Something went wrong.'); }
-      geoBtn.disabled = false; geoBtn.firstChild.textContent = 'USE MY LOCATION ';
-    }, (err) => {
-      geoBtn.disabled = false; geoBtn.firstChild.textContent = 'USE MY LOCATION ';
-      geoError(err.code === 1 ? 'Location permission was declined.' : err.code === 3 ? 'Location timed out.' : 'Your device could not determine a position.');
-    }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 });
-  });
-
-  $('geo-checkin')?.addEventListener('click', async (e) => {
-    const btn = e.currentTarget; if (!lastFix) return; btn.disabled = true;
-    try {
-      const res = await post('/api/geo', { ...lastFix, visitor, checkin: true });
-      const r = await res.json();
-      if (!res.ok) throw new Error(r.error);
-      $('geo-badge').textContent = r.checkedIn ? 'CHECKED IN ✓' : 'ALREADY CHECKED IN TODAY ✓';
-      btn.firstChild.textContent = 'THANKS FOR SHOWING UP ';
-    } catch { btn.disabled = false; $('geo-venue').hidden = false; $('geo-venue').textContent = 'Check-in failed. Please try again.'; }
-  });
-
-  zipForm?.addEventListener('submit', async (e) => {
-    e.preventDefault(); lastFix = null;
-    const zip = $('zip').value.trim();
-    if (!/^\d{5}$/.test(zip)) return geoError('That ZIP code does not look right.');
-    try {
-      const res = await post('/api/geo', { zip, visitor }); const r = await res.json();
-      if (!res.ok) throw new Error(r.error);
-      showResult(r);
-    } catch (err) { geoError(err.message || 'Something went wrong.'); }
-  });
 
   // ---- sponsor inquiry form ----
   const form = $('sponsor-form'); if (!form) return;
@@ -125,7 +53,6 @@
     btn.disabled = true; status.textContent = 'Sending…';
     const payload = { ...d, consent: true, elapsedMs: Date.now() - pageStart };
     try {
-      throw new Error('GitHub Pages has no inquiry API');
       const res = await post('/api/inquiries', payload);
       const r = await res.json().catch(() => ({}));
       if (res.status === 422) { setErrs(r.fields); status.textContent = r.error || ''; btn.disabled = false; return; }

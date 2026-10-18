@@ -16,13 +16,12 @@
     const frag = document.createDocumentFragment();
     view.forEach((p, i) => {
       const b = document.createElement('button');
-      b.className = 'gp-tile' + (filter === 'all' && i === 0 ? ' gp-feature' : '');
-      b.style.aspectRatio = p.w + ' / ' + p.h;
+      b.className = 'gp-tile';
       b.setAttribute('aria-label', 'View photo ' + (i + 1) + ' of ' + view.length + ', ' + label(p).toLowerCase());
       const im = document.createElement('img');
       im.src = p.src; im.width = p.w; im.height = p.h; im.loading = 'lazy'; im.decoding = 'async';
       im.alt = 'Bo Ready Racing #38, ' + label(p).toLowerCase();
-      b.append(im); const tag = document.createElement('span'); tag.className = 'gp-view'; tag.textContent = 'VIEW PHOTO ↗'; b.append(tag);
+      b.append(im);
       b.addEventListener('click', () => open(i));
       frag.append(b);
     });
