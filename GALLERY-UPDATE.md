@@ -1,0 +1,1 @@
+Gallery redesign: photo-first hero, single gallery, unique image paths, working lightbox. Files: gallery.html, gallery.js, styles.css. Test via python -m http.server 8000 and open http://localhost:8000/gallery.html.
